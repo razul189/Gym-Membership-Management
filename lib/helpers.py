@@ -2,7 +2,7 @@
 #CREATE TABLE members( id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT, age INTEGER, gender TEXT, membership_type TEXT CHECK (membership_type IN ("basic", "silver", "gold")), FOREIGN KEY (gym_id) REFERENCES gyms (id));
 
 #CREATE TABLE gyms (id INTEGER PRIMARY KEY, name TEXT, location TEXT, opening_hours TIME, closing_hours TIME);
-from models.model_1 import Member 
+from models.model_1 import Member, Gym 
 
 def exit_program():
     print("Goodbye!")
@@ -131,7 +131,106 @@ def delete_member_by_name():
     except Exception as e:
         print("Error:", e)
 
+def gym_sign_up():
+    print("Enter the gym name.")
+    name = input("> ")
+    if not name:
+        print("Gym name is empty.")
+        return False
+    elif name.isdigit():
+        print("Gym name cannot be a number.")
+        return False
 
+    print("Enter the gym location.")
+    location = input("> ")
+    if not location:
+        print("Gym location is empty.")
+        return False
+    elif location.isdigit():
+        print("Gym location cannot be a number.")
+        return False
 
+    print("Enter the opening hours (HH:MM format).")
+    opening_hours = input("> ")
+    if not opening_hours:
+        print("Opening hours is empty.")
+        return False
 
-        
+    print("Enter the closing hours (HH:MM format).")
+    closing_hours = input("> ")
+    if not closing_hours:
+        print("Closing hours is empty.")
+        return False
+
+    # Validate time format (HH:MM)
+    def is_valid_time_format(time_str):
+        try:
+            hour, minute = map(int, time_str.split(":"))
+            return 0 <= hour < 24 and 0 <= minute < 60
+        except ValueError:
+            return False
+
+    if not is_valid_time_format(opening_hours):
+        print("Opening hours is not in a valid HH:MM format.")
+        return False
+
+    if not is_valid_time_format(closing_hours):
+        print("Closing hours is not in a valid HH:MM format.")
+        return False
+
+    new_gym = Gym(name, location, opening_hours, closing_hours)
+    try:
+        id_new_gym = new_gym.register_gym()
+        print(f"Gym registered successfully with ID: {id_new_gym}.")
+        return True
+    except Exception as e:
+        print(f"Failed to register gym: {e}")
+        return False
+    
+def get_all_gyms():
+    gym_manager = Gym("", "", "", "")
+    gyms = gym_manager.get_all_gyms()
+    for g in gyms:
+        print("ID: ", g[0])
+        print("Name: ", g[1])
+        print("Location: ", g[2])
+        print("Opening Hours: ", g[3])
+        print("Closing Hours: ", g[4], "\n")
+
+def get_gym_by_id():
+    try:
+        gym_id = int(input("Enter the ID of the gym: "))
+        gym_manager = Gym("", "", "", "")
+        gym = gym_manager.find_gym_by_id(gym_id)
+        if not gym:
+            print("Gym with the provided ID does not exist.")
+            return
+        print(f"ID: {gym[0]}")
+        print(f"Name: {gym[1]}")
+        print(f"Location: {gym[2]}")
+        print(f"Opening Hours: {gym[3]}")
+        print(f"Closing Hours: {gym[4]}")
+    except ValueError:
+        print("Invalid input. Please enter a valid gym ID.")
+
+def delete_gym_by_id():
+    try:
+        gym_id = int(input("Enter the ID of the gym you want to delete: "))
+        gym_manager = Gym("", "", "", "")
+        gym = gym_manager.find_gym_by_id(gym_id)
+        if not gym:
+            print(f"No gym with ID {gym_id} found.")
+            return
+
+        confirm = input(f"Are you sure you want to delete gym with ID {gym_id}? (yes/no): ")
+        if confirm.lower() != 'yes':
+            print("Deletion cancelled.")
+            return
+
+        gym_manager.delete_gym(gym_id)
+        print(f"Gym with ID {gym_id} deleted successfully.")
+    except ValueError:
+        print("Invalid input. Please enter a valid gym ID.")
+    except Exception as e:
+        print("Error:", e)
+
