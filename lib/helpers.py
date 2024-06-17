@@ -1,14 +1,16 @@
 # lib/helpers.py
+
+from models.model_1 import Member, Gym 
+
 #CREATE TABLE members( id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT, age INTEGER, gender TEXT, membership_type TEXT CHECK (membership_type IN ("basic", "silver", "gold")), FOREIGN KEY (gym_id) REFERENCES gyms (id));
 
 #CREATE TABLE gyms (id INTEGER PRIMARY KEY, name TEXT, location TEXT, opening_hours TIME, closing_hours TIME);
-from models.model_1 import Member, Gym 
 
 def exit_program():
     print("Goodbye!")
     exit()
 
-def member_sign_up():
+def member_sign_up(gym_id):
     print("\nEnter your first name.")
     first_name = input("> ")
     if not first_name:
@@ -56,8 +58,6 @@ def member_sign_up():
         print("Your option must be a number.")
         return False
 
-    gym_id = 1
-
     new_member = Member(first_name, last_name, age, gender, membership_type, gym_id)
     try:
         id_new_member = new_member.register_member()
@@ -67,15 +67,25 @@ def member_sign_up():
         print(f"Failed to register member: {e}")
         return False
 
-def find_member_by_id():
+def find_member_by_id(member_number,gym_id):
     try:
-        member_id = int(input("Enter the ID of the member "))
+        member_id = member_number
         member_manager = Member()
         member = member_manager.find_member_by_id(member_id)
         if not member:
-            print("Member with the provided ID does not exist.")
-            return
-        print(member)
+            print("Member with the provided ID does not exist.\n\n\n\n")
+            return False
+        if member[6] != gym_id:
+            print("Not a member of this gym\n\n\n\n")
+            return False
+        print("Member:")
+        print(f"First name: {member[1]}")
+        print(f"Last name: {member[2]}")
+        print(f"Age: {member[3]}")
+        print(f"Gender: {member[4]}")
+        print(f"Membership: {member[5]}")
+        print("\n\n")
+        return True
     except ValueError:
         print("Invalid input. Please enter a valid member ID.")
 
@@ -92,9 +102,9 @@ def get_all_members():
         print("Membership type: ",m[5])
         print("Gym: ",m[6],"\n")
 
-def delete_member():
+def delete_member(member_number):
     try:
-        member_id = int(input("Enter the ID of the member you want to delete: "))
+        member_id = member_number
         member_manager = Member()
         member = member_manager.find_member_by_id(member_id)
         if not member:
@@ -191,16 +201,13 @@ def get_all_gyms():
     gym_manager = Gym("", "", "", "")
     gyms = gym_manager.get_all_gyms()
     for g in gyms:
-        print("ID: ", g[0])
-        print("Name: ", g[1])
-        print("Location: ", g[2])
-        print("Opening Hours: ", g[3])
-        print("Closing Hours: ", g[4], "\n")
+        print(str(g[0])+ ". ", g[1],"\n")
 
-def get_gym_by_id():
+def get_gym_by_id(gym_number):
     try:
-        gym_id = int(input("Enter the ID of the gym: "))
+        gym_id = gym_number
         gym_manager = Gym("", "", "", "")
+        member_manager = Member()
         gym = gym_manager.find_gym_by_id(gym_id)
         if not gym:
             print("Gym with the provided ID does not exist.")
@@ -210,12 +217,20 @@ def get_gym_by_id():
         print(f"Location: {gym[2]}")
         print(f"Opening Hours: {gym[3]}")
         print(f"Closing Hours: {gym[4]}")
+        print()
+        gym_members = member_manager.find_members_by_gym(gym_id)
+        if not gym_members:
+            print("No gym members\n\n\n\n")
+            return
+        print("Gym's members")
+        for member in gym_members:
+            print(f"{member[0]}. {member[1]} {member[2]}")
     except ValueError:
         print("Invalid input. Please enter a valid gym ID.")
 
-def delete_gym_by_id():
+def delete_gym_by_id(gym_number):
     try:
-        gym_id = int(input("Enter the ID of the gym you want to delete: "))
+        gym_id = gym_number
         gym_manager = Gym("", "", "", "")
         gym = gym_manager.find_gym_by_id(gym_id)
         if not gym:

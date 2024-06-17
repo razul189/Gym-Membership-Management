@@ -11,6 +11,7 @@ class Member:
         self._membership_type = membership_type
         self._gym_id = gym_id
 
+
     @property
     def first_name(self):
         return self._first_name
@@ -119,6 +120,11 @@ class Member:
     def get_all_members(self):
         get_all_query = "SELECT * FROM members"
         CURSOR.execute(get_all_query)
+        return CURSOR.fetchall()
+    
+    def find_members_by_gym(self, gym_id):
+        find_by_gym_query = "SELECT * FROM members WHERE gym_id = ?"
+        CURSOR.execute(find_by_gym_query, (gym_id,))
         return CURSOR.fetchall()
     
     
