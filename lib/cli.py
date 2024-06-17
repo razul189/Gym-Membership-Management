@@ -4,9 +4,9 @@ from helpers import (
     exit_program,
     member_sign_up,
     find_member_by_id,
-    get_all_members,
+    # get_all_members,
     delete_member,
-    delete_member_by_name,
+    # delete_member_by_name,
     gym_sign_up,
     get_all_gyms,
     get_gym_by_id,
@@ -99,22 +99,22 @@ def main():
             exit_program()
         elif choice == "G" or choice == "g":
             gyms_menu()
-        elif choice == "2":
-            find_member_by_id()
-        elif choice == "3":
-            get_all_members()
-        elif choice == "4":
-             delete_member()
-        elif choice == "5":
-            delete_member_by_name()
-        elif choice == "6":
-            gym_sign_up()
-        elif choice == "7":
-            get_all_gyms()
-        elif choice == "8":
-            get_gym_by_id()
-        elif choice == "9":
-            delete_gym_by_id()
+        # elif choice == "2":
+        #     find_member_by_id()
+        # elif choice == "3":
+        #     get_all_members()
+        # elif choice == "4":
+        #      delete_member()
+        # elif choice == "5":
+        #     delete_member_by_name()
+        # elif choice == "6":
+        #     gym_sign_up()
+        # elif choice == "7":
+        #     get_all_gyms()
+        # elif choice == "8":
+        #     get_gym_by_id()
+        # elif choice == "9":
+        #     delete_gym_by_id()
         else:
             print("Invalid choice")
 

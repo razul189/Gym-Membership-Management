@@ -102,20 +102,20 @@ class Member:
         CURSOR.execute(find_by_id_query, (member_id,))
         return CURSOR.fetchone()
     
-    def find_member_by_name(self, first_name, last_name):
-        find_by_name_query = "SELECT * FROM members WHERE first_name = ? AND last_name = ?"
-        CURSOR.execute(find_by_name_query, (first_name, last_name))
-        return CURSOR.fetchone()
+    # def find_member_by_name(self, first_name, last_name):
+    #     find_by_name_query = "SELECT * FROM members WHERE first_name = ? AND last_name = ?"
+    #     CURSOR.execute(find_by_name_query, (first_name, last_name))
+        # return CURSOR.fetchone()
     
     def delete_member(self, member_id):
         delete_member_query = "DELETE FROM members WHERE id = ?"
         CURSOR.execute(delete_member_query, (member_id,))
         CONN.commit()
 
-    def delete_member_by_name(self, first_name, last_name):
-        delete_member_query = "DELETE FROM members WHERE first_name = ? AND last_name = ?"
-        CURSOR.execute(delete_member_query, (first_name, last_name))
-        CONN.commit()
+    # def delete_member_by_name(self, first_name, last_name):
+    #     delete_member_query = "DELETE FROM members WHERE first_name = ? AND last_name = ?"
+    #     CURSOR.execute(delete_member_query, (first_name, last_name))
+    #     CONN.commit()
 
     def get_all_members(self):
         get_all_query = "SELECT * FROM members"
@@ -202,20 +202,20 @@ class Gym:
         CURSOR.execute(delete_gym_query, (gym_id,))
         CONN.commit()
 
-    def delete_gym_by_name(self, name):
-        delete_gym_query = "DELETE FROM gyms WHERE name = ?"
-        CURSOR.execute(delete_gym_query, (name,))
-        CONN.commit()
+    # def delete_gym_by_name(self, name):
+    #     delete_gym_query = "DELETE FROM gyms WHERE name = ?"
+    #     CURSOR.execute(delete_gym_query, (name,))
+    #     CONN.commit()
 
     def get_all_gyms(self):
         get_all_query = "SELECT * FROM gyms"
         CURSOR.execute(get_all_query)
         return CURSOR.fetchall()
     
-    def find_gym_by_name(self, name):
-        find_by_name_query = "SELECT * FROM gyms WHERE name = ?"
-        CURSOR.execute(find_by_name_query, (name,))
-        return CURSOR.fetchone()
+    # def find_gym_by_name(self, name):
+    #     find_by_name_query = "SELECT * FROM gyms WHERE name = ?"
+    #     CURSOR.execute(find_by_name_query, (name,))
+    #     return CURSOR.fetchone()
     
     
     
