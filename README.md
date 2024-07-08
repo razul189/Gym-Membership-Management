@@ -23,8 +23,8 @@ This project is a command-line interface (CLI) application for managing gym memb
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/yourusername/gym-membership-management.git
-    cd gym-membership-management
+    git clone https://github.com/razul189/Gym-Membership-Management.git
+    cd Gym-Membership-Management
     ```
 
 ### Setting Up the Virtual Environment
