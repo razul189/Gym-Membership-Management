@@ -70,30 +70,12 @@ This project is a command-line interface (CLI) application for managing gym memb
 - **Data Persistence:**
   - All data is stored in an SQLite database (`gym_database.db`).
 
-## Project Structure
-
-```plaintext
-gym-membership-management/
-│
-├── lib/
-│   ├── cli.py         # Main CLI application
-│   └── helpers.py     # Helper functions for CLI operations
-│
-├── models/
-│   ├── __init__.py    # Database initialization and table creation
-│   ├── gym.py         # Gym model
-│   └── member.py      # Member model
-│
-├── gym_database.db    # SQLite database file
-├── requirements.txt   # Python dependencies
-└── README.md          # Project README file
-
-
 ## Models
 
 ### Member
 
 Represents a gym member with attributes:
+
 - `first_name`
 - `last_name`
 - `age`
@@ -161,3 +143,23 @@ The helper functions in `helpers.py` handle various operations like:
 - Signing up new members and gyms.
 - Finding members and gyms by their attributes.
 - Deleting members and gyms by their IDs.
+
+## Overall Project Structure
+
+```plaintext
+gym-membership-management/
+│
+├── lib/
+│   ├── cli.py         # Main CLI application
+│   └── helpers.py     # Helper functions for CLI operations
+│
+├── models/
+│   ├── __init__.py    # Database initialization and table creation
+│   ├── gym.py         # Gym model
+│   └── member.py      # Member model
+│
+├── gym_database.db    # SQLite database file
+├── requirements.txt   # Python dependencies
+└── README.md          # Project README file
+
+
