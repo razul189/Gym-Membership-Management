@@ -2,6 +2,7 @@
 # lib/debug.py
 
 from models.__init__ import CONN, CURSOR
-import ipdb
+from models.member import Member
+from models.gym import Gym
 
-ipdb.set_trace()
+import ipdb; ipdb.set_trace()

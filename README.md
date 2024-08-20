@@ -35,6 +35,7 @@ This project is a command-line interface (CLI) application for managing gym memb
     ```bash
     python -m venv venv
     venv\Scripts\activate
+    ```
 
 ### Installing Dependencies
 
@@ -71,19 +72,22 @@ This project is a command-line interface (CLI) application for managing gym memb
 
 ## Project Structure
 
+```plaintext
 gym-membership-management/
 │
 ├── lib/
-│ ├── cli.py # Main CLI application
-│ └── helpers.py # Helper functions for CLI operations
+│   ├── cli.py         # Main CLI application
+│   └── helpers.py     # Helper functions for CLI operations
 │
 ├── models/
-│ ├── init.py # Database initialization and table creation
-│ └── model_1.py # Member and Gym models
+│   ├── __init__.py    # Database initialization and table creation
+│   ├── gym.py         # Gym model
+│   └── member.py      # Member model
 │
-├── gym_database.db # SQLite database file
-├── requirements.txt # Python dependencies
-└── README.md # Project README file
+├── gym_database.db    # SQLite database file
+├── requirements.txt   # Python dependencies
+└── README.md          # Project README file
+
 
 ## Models
 
@@ -98,27 +102,33 @@ Represents a gym member with attributes:
 - `gym_id`
 
 Methods:
+
 - `save()`: Saves the member to the database.
+- `update()`: Updates the member in the database.
 - `delete()`: Deletes the member from the database.
 - `get_all()`: Retrieves all members.
 - `find_by_id(member_id)`: Finds a member by their ID.
 - `find_members_by_gym(gym_id)`: Finds all members of a specific gym.
-- `delete_by_id(member_id)`: Deletes a member by their ID.
+- `find_by_attribute(attribute, value)`: Finds a member by a specific attribute.
 
 ### Gym
 
 Represents a gym with attributes:
+
 - `name`
 - `location`
 - `opening_hours`
 - `closing_hours`
 
 Methods:
+
 - `save()`: Saves the gym to the database.
+- `update()`: Updates the gym in the database.
 - `delete()`: Deletes the gym from the database.
 - `get_all()`: Retrieves all gyms.
 - `find_by_id(gym_id)`: Finds a gym by its ID.
-- `delete_by_id(gym_id)`: Deletes a gym by its ID.
+- `find_by_attribute(attribute, value)`: Finds a gym by a specific attribute.
+- `members()`: Retrieves all members of the gym.
 
 ## CLI
 
@@ -132,21 +142,22 @@ The CLI application provides a user-friendly interface to manage gyms and member
 ### Gyms Menu
 
 - `A`: Add a new gym.
+- `F`: Find a gym by name.
 - `E`: Exit the program.
 - Select a gym number to view its details and manage its members.
 
 ### Members Menu
 
 - `A`: Add a new member to the selected gym.
+- `F`: Find a member by first name.
 - `D`: Delete the selected gym.
-- Select a member number to view their details and delete them.
+- Select a member number to view their details or delete them.
 
 ## Helper Functions
 
 The helper functions in `helpers.py` handle various operations like:
+
 - Exiting the program.
 - Signing up new members and gyms.
-- Finding members and gyms by ID.
-- Deleting members and gyms by ID.
-
-
+- Finding members and gyms by their attributes.
+- Deleting members and gyms by their IDs.

@@ -1,8 +1,8 @@
-# this is my __init__.py file
-
 import sqlite3
 
-CONN = sqlite3.connect('gym_database.db')
+DATABASE_NAME = 'gym_database.db'
+
+CONN = sqlite3.connect(DATABASE_NAME)
 CURSOR = CONN.cursor()
 
 def create_tables():
@@ -29,5 +29,5 @@ def create_tables():
     """)
     CONN.commit()
 
-create_tables()
+    create_tables()
 
